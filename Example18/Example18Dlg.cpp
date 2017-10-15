@@ -63,6 +63,7 @@ BEGIN_MESSAGE_MAP(CExample18Dlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDC_FONT_BUTTON, &CExample18Dlg::OnBnClickedFontButton)
+	ON_BN_CLICKED(IDC_COLOR_BUTTON, &CExample18Dlg::OnBnClickedColorButton)
 END_MESSAGE_MAP()
 
 
@@ -184,4 +185,21 @@ void CExample18Dlg::OnBnClickedFontButton()
 		strFontName = fontDlg.m_cf.lpLogFont->lfFaceName;
 		SetDlgItemText(IDC_FONT_EDIT, strFontName);
 	}
+}
+
+
+void CExample18Dlg::OnBnClickedColorButton()
+{
+	// TODO: 在此添加控件通知处理程序代码
+    COLORREF color = RGB(255, 0, 0);      // 颜色对话框的初始颜色为红色  
+    CColorDialog colorDlg(color);         // 构造颜色对话框，传入初始颜色值   
+   
+    if (IDOK == colorDlg.DoModal())       // 显示颜色对话框，并判断是否点击了“确定”   
+    {   
+        color = colorDlg.GetColor();      // 获取颜色对话框中选择的颜色值   
+        SetDlgItemInt(IDC_COLOR_EDIT, color);         // 在Color编辑框中显示所选颜色值   
+        SetDlgItemInt(IDC_R_EDIT, GetRValue(color));  // 在R编辑框中显示所选颜色的R分量值   
+        SetDlgItemInt(IDC_G_EDIT, GetGValue(color));  // 在G编辑框中显示所选颜色的G分量值   
+        SetDlgItemInt(IDC_B_EDIT, GetBValue(color));  // 在B编辑框中显示所选颜色的B分量值   
+    }  
 }
